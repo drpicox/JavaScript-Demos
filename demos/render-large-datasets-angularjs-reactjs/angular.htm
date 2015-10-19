@@ -31,20 +31,19 @@
 		</span>
 
 		<!-- Provide tooling to unmount and remount the grid. -->
-		<a ng-if="vm.grid.length" ng-click="vm.unmountGrid()">Unmount Grid</a>
-		<a ng-if="! vm.grid.length" ng-click="vm.remountGrid()">Remount Grid</a>
+		<a ng-show="vm.grid.length" ng-click="vm.unmountGrid()">Unmount Grid</a>
+		<a ng-hide="vm.grid.length" ng-click="vm.remountGrid()">Remount Grid</a>
 	</form>
 
-	<table width="100%" cellspacing="2" ng-class="{ filtered: vm.form.filter }">
+	<table width="100%" cellspacing="2" ng-class="vm.form.filter && 'filtered'">
 		<tr ng-repeat="row in vm.grid track by row.id">
-			<td>
-				{{ row.id }}
+			<td ng-bind="row.id">
 			</td>
 			<td 
 				ng-repeat="item in row.items track by item.id"
 				class="item"
-				ng-class="{ hidden: item.isHiddenByFilter }">
-				{{ item.value }}
+				ng-class="item.isHiddenByFilter && 'hidden'"
+				ng-bind="item.value">
 			</td>
 		</tr>
 	</table>
